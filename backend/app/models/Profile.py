@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, Enum
+from sqlalchemy import Column, Integer, ForeignKey, Enum, String
 from sqlalchemy.orm import relationship
 # from sqlalchemy.sql import func
 from backend.app.database import Base
@@ -11,10 +11,11 @@ class Profile(Base):
     __tablename__ = "profiles"
 
     id = Column(Integer, primary_key=True)
-    household_size = Column(Integer, nullable=False)
+    household_size = Column(Integer, default=1)
     dietary_restrictions = Column(Enum(DietaryRestrictions), default=DietaryRestrictions.NONE)
     cuisine_preference = Column(Enum(CuisineType), default=CuisineType.BANGLADESHI)
     cooking_skill = Column(Enum(CookingSkill), default=CookingSkill.INTERMEDIATE)
+    user_image_url = Column(String(1000), nullable=True)
     user_id = Column(Integer, ForeignKey("users.id"), unique=True) # one to one
 
     user = relationship("User", back_populates="profile") # one to one

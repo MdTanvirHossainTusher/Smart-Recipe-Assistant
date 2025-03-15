@@ -14,9 +14,9 @@ class User(Base):
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
     deleted = Column(Boolean, default=False)
-    # profile_id = Column(Integer, ForeignKey("profiles.id"))
 
-    profile = relationship("Profile", back_populates="user", uselist=False, cascade="all, delete-orphan") # one to one
+    profile = relationship("Profile", back_populates="user", uselist=False,
+                           cascade="all, delete-orphan", lazy="joined") # one to one
 
     # collections = relationship("Collection", back_populates="user") # one to many
     # meal_plans = relationship("MealPlan", back_populates="user") # one to many
